@@ -1,20 +1,3 @@
-"""
-DAG 1_data_import: ежедневная загрузка данных из S3 в STAGING-слой Vertica.
-
-Источник: открытый бакет S3 `final-project`
-  * currencies_history.csv      — история курсов валют;
-  * transactions_batch_*.csv    — история транзакций, разбитая на батчи (по возрастанию времени).
-
-На каждый запуск (параметр даты ds) DAG:
-  1. забирает файлы из S3 через boto3;
-  2. оставляет строки только за дату ds;
-  3. удаляет из Vertica данные за эту дату (идемпотентность) и загружает их через COPY.
-
-Настройки (в коде секретов нет):
-  * Airflow Connection `vertica_conn` — host, port, login, password, schema (= имя БД, `dwh`);
-  * Airflow Variables `s3_access_key_id` / `s3_secret_access_key` (или `aws_access_key_id` / `aws_secret_access_key`) — ключи из условия проекта;
-  * Airflow Variable `vertica_schema_prefix` — префикс схем (по умолчанию VT260909EE3191).
-"""
 import io
 import logging
 import re
@@ -109,7 +92,7 @@ def _s3_variable(*names: str) -> str:
     for name in names:
         value = Variable.get(name, default_var=None)
         if value and value.strip():
-            return value.strip()   # при копировании из урока в значении часто остаётся пробел
+            return value.strip()   
     raise KeyError(f"Не найдена ни одна из Airflow Variables: {names}")
 
 
@@ -133,7 +116,7 @@ def _vertica_connection():
         "user": conn.login,
         "password": conn.password,
         "database": conn.schema or "dwh",
-        "autocommit": False,  # коммитим сами, когда всё прошло
+        "autocommit": False,  
     }
     return vertica_python.connect(**info)
 
