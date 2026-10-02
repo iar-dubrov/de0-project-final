@@ -1,7 +1,3 @@
--- STAGING-слой: сырые данные из S3 (бакет final-project).
--- Схема уже создана в предыдущих спринтах, новые схемы не создаём.
--- Имя схемы: VT260909EE3191__STAGING (логин в Vertica) — при необходимости замените префикс.
-
 -- Транзакции
 CREATE TABLE IF NOT EXISTS VT260909EE3191__STAGING.transactions (
     operation_id       varchar(60)  NOT NULL,   -- id транзакции
