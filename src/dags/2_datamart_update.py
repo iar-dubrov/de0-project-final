@@ -1,15 +1,3 @@
-"""
-DAG 2_datamart_update: ежедневное инкрементальное обновление витрины global_metrics в Vertica.
-
-Берёт данные из STAGING (transactions, currencies), исключает тестовые аккаунты (номер < 0),
-пересчитывает партицию за день ds (execution date, т.е. «вчера» относительно запуска)
-и записывает её в <префикс>__DWH.global_metrics.
-
-Перед расчётом ждёт, пока DAG 1_data_import закончит загрузку за тот же день.
-
-Настройки: Airflow Connection `vertica_conn`, Variable `vertica_schema_prefix`.
-SQL продублирован в src/sql/3_global_metrics_update.sql.
-"""
 import logging
 from datetime import datetime, timedelta
 
