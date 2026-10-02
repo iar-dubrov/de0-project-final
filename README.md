@@ -16,6 +16,11 @@
 | Staging-таблицы | `VT260909EE3191__STAGING.transactions`, `VT260909EE3191__STAGING.currencies` |
 | Период | октябрь 2022 (31 запуск каждого DAG, все `success`) |
 
+```
+vertica://vt260909ee3191@vertica.data-engineer.education-services.ru:5433/dwh
+таблица: VT260909EE3191__DWH.global_metrics
+```
+
 ## Архитектура
 
 ```
