@@ -1,6 +1,3 @@
--- DWH-слой: итоговая витрина global_metrics (агрегация по дням и валютам).
--- Имя схемы: VT260909EE3191__DWH (логин в Vertica) — при необходимости замените префикс.
-
 CREATE TABLE IF NOT EXISTS VT260909EE3191__DWH.global_metrics (
     date_update                    date          NOT NULL, -- дата расчёта
     currency_from                  int           NOT NULL, -- код валюты транзакции
